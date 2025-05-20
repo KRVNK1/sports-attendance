@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -6,60 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Система учета спортсменов')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    @yield('styles')
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('welcome') }}">Система учета</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('athletes.index') }}">Спортсмены</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('coaches.index') }}">Тренеры</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('groups.index') }}">Группы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('schedule.index') }}">Расписание</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
-                    </li>
-                    @else
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Выход
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    @endguest
-                </ul>
-            </div>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="{{ route('welcome') }}" class="navbar-brand">Система учета</a>
+
+            <ul class="navbar-nav">
+                @auth
+                @if(auth()->user()->role == 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('athletes.index') }}" class="nav-link">Спортсмены</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('coaches.index') }}" class="nav-link">Тренеры</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('groups.index') }}" class="nav-link">Группы</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('schedule.index') }}" class="nav-link">Расписание</a>
+                </li>
+                @elseif(auth()->user()->role == 'coach')
+                <li class="nav-item">
+                    <a href="{{ route('athletes.index') }}" class="nav-link">Спортсмены</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('groups.index') }}" class="nav-link">Группы</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('schedule.index') }}" class="nav-link">Расписание</a>
+                </li>
+                @elseif(auth()->user()->role == 'athlete')
+                <li class="nav-item">
+                    <a href="{{ route('profile') }}" class="nav-link">Мой профиль</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('schedule.index') }}" class="nav-link">Расписание</a>
+                </li>
+                @endif
+                @endauth
+            </ul>
+
+            <ul class="navbar-nav navbar-right">
+                @guest
+                <li class="nav-item">
+                    <a href="{{ route('login') }}" class="nav-link">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('register') }}" class="nav-link">Регистрация</a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <span class="nav-link">{{ Auth::user()->name }}</span>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Выход
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+                @endguest
+            </ul>
         </div>
     </nav>
 
@@ -79,7 +91,6 @@
         @yield('content')
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @yield('scripts')
 </body>
 

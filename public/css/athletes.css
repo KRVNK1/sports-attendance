@@ -1,0 +1,81 @@
+/* Стили для раздела спортсменов */
+
+.athletes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.athlete-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.athlete-info {
+    margin-bottom: 15px;
+}
+
+.athlete-groups {
+    margin-top: 20px;
+}
+
+.athlete-groups-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.athlete-groups-item {
+    padding: 10px;
+    background-color: #f8f9fa;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.athlete-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.athlete-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.athlete-form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.athlete-attendance {
+    margin-top: 20px;
+}
+
+.athlete-attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.athlete-attendance-table th,
+.athlete-attendance-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.athlete-attendance-table th {
+    background-color: #f1f1f1;
+}
+
+.athlete-attendance-present {
+    color: #28a745;
+}
+
+.athlete-attendance-absent {
+    color: #dc3545;
+}

@@ -1,0 +1,61 @@
+/* Стили для раздела тренеров */
+
+.coaches-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.coach-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.coach-info {
+    margin-bottom: 15px;
+}
+
+.coach-groups {
+    margin-top: 15px;
+}
+
+.coach-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.coach-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.coach-form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.coach-trainings {
+    margin-top: 20px;
+}
+
+.coach-trainings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.coach-trainings-table th,
+.coach-trainings-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.coach-trainings-table th {
+    background-color: #f1f1f1;
+}

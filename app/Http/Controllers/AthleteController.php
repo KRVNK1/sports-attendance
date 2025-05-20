@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AthleteController extends Controller
 {
@@ -79,5 +80,16 @@ class AthleteController extends Controller
     {
         $athlete->delete();
         return redirect()->route('athletes.index')->with('success', 'Спортсмен удален');
+    }
+
+    public function profile()
+    {
+        // Получаем текущего аутентифицированного пользователя
+        $athlete = Auth::user();
+        
+        // Загружаем связанные данные (группы и посещаемость)
+        $athlete->load(['groups', 'attendances.training.group']);
+        
+        return view('athletes.profile', compact('athlete'));
     }
 }

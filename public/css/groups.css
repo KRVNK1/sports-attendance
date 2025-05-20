@@ -1,0 +1,141 @@
+/* Стили для раздела групп */
+
+.groups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.group-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.group-info {
+    margin-bottom: 15px;
+}
+
+.group-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.group-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.group-form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Расписание по дням недели */
+.day-header {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    margin-top: 20px;
+    border-radius: 5px 5px 0 0;
+}
+
+.day-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-item {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.day-item h3 {
+    margin-top: 0;
+    color: #0d6efd;
+}
+
+/* Плавающая кнопка добавления */
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.add-button:hover {
+    background-color: #0b5ed7;
+    color: white;
+}
+
+.add-button .icon {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Нижняя панель навигации */
+.button-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 900;
+}
+
+.button-panel button {
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: #555;
+}
+
+.button-panel button img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .day-content {
+        flex-direction: column;
+    }
+
+    .day-item {
+        width: 100%;
+    }
+}

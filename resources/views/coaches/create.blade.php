@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Создание спортсмена')
+@section('title', 'Создание тренера')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/athletes.css') }}">
+<link rel="stylesheet" href="{{ asset('css/coaches.css') }}">
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h1>Создание спортсмена</h1>
+        <h1>Создание тренера</h1>
     </div>
     <div class="card-body">
-        <form action="{{ route('athletes.store') }}" method="POST" class="athlete-form">
+        <form action="{{ route('coaches.store') }}" method="POST" class="coach-form">
             @csrf
             <div class="form-group">
                 <label for="name" class="form-label">Имя:</label>
@@ -56,20 +56,8 @@
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group">
-                <label for="group_id" class="form-label">Группа:</label>
-                <select class="form-select" id="group_id" name="group_id">
-                    <option value="">Выберите группу</option>
-                    @foreach($groups as $group)
-                    <option value="{{ $group->id }}" {{ old('group_id') == $group->id ? 'selected' : '' }}>{{ $group->name }}</option>
-                    @endforeach
-                </select>
-                @error('group_id')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="athlete-form-buttons">
-                <a href="{{ route('athletes.index') }}" class="btn btn-secondary">Отмена</a>
+            <div class="coach-form-buttons">
+                <a href="{{ route('coaches.index') }}" class="btn btn-secondary">Отмена</a>
                 <button type="submit" class="btn btn-primary">Создать</button>
             </div>
         </form>

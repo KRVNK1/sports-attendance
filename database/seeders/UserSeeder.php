@@ -62,8 +62,8 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        foreach ($users as $userData) {
-            User::create($userData);
+        foreach ($users as $user) {
+            User::create($user);
         }
     }
 }

@@ -35,8 +35,8 @@ class GroupSeeder extends Seeder
             ]
         ];
         
-        foreach ($groups as $groupData) {
-            Group::create($groupData);
+        foreach ($groups as $group) {
+            Group::create($group);
         }
     }
 }

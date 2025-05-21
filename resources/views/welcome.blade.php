@@ -11,6 +11,8 @@
     <h1>Расписание</h1>
 </div>
 
+
+<!-- Расписание по дням -->
 <table class="schedule-table">
     <thead>
         <tr>

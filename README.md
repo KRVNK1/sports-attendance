@@ -59,3 +59,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Perspective
+
+Первым делом посмотреть комментарии
+
+1)Расписание по дням(название группы, тренер, время и зал)
+2)Добавление тренировки(указание группы, времени(день недели и время), тренера)
+3)Надо подумать над указанием даты и днем недели

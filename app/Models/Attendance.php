@@ -10,7 +10,6 @@ class Attendance extends Model
         'training_id',
         'athlete_id',
         'present',
-        'absence_reason'
     ];
 
     protected $casts = [

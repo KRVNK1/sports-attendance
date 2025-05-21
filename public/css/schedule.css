@@ -1,4 +1,7 @@
 /* Стили для раздела расписания */
+.form-control {
+    resize: vertical;
+}
 
 .schedule-header {
     display: flex;

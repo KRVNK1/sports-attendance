@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Group;
+use App\Models\User;
 
 
 class GroupSeeder extends Seeder
@@ -14,14 +15,28 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
-        Group::create([
-            'name' => 'Взрослые',
-            'description' => '123'
-        ]);
+        $coaches = User::where('role', 'coach')->pluck('id')->toArray();
 
-        Group::create([
-            'name' => 'Дети',
-            'description' => '123'
-        ]);
+        $groups = [
+            [
+                'name' => 'Взрослые',
+                'description' => '123',
+                'coach_id' => $coaches[0],
+            ],
+            [
+                'name' => 'Дети',
+                'description' => '123',
+                'coach_id' => $coaches[1],
+            ],
+            [
+                'name' => 'Юниоры',
+                'description' => '123',
+                'coach_id' => $coaches[2],
+            ]
+        ];
+        
+        foreach ($groups as $groupData) {
+            Group::create($groupData);
+        }
     }
 }

@@ -50,37 +50,43 @@ class User extends Authenticatable
         ];
     }
 
-     // Проверка ролей
-     public function isAdmin(): bool
-     {
-         return $this->role === 'admin';
-     }
- 
-     public function isCoach(): bool
-     {
-         return $this->role === 'coach';
-     }
- 
-     public function isAthlete(): bool
-     {
-         return $this->role === 'athlete';
-     }
- 
-     // Группы, в которых состоит спортсмен
-     public function groups()
-     {
-         return $this->belongsToMany(Group::class, 'athlete_group', 'athlete_id', 'group_id');
-     }
- 
-     // Тренировки, которые ведет тренер
-     public function coachedTrainings()
-     {
-         return $this->hasMany(Training::class, 'coach_id');
-     }
- 
-     // Посещения спортсмена
-     public function attendances()
-     {
-         return $this->hasMany(Attendance::class, 'athlete_id');
-     }
+    // Проверка ролей
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isCoach()
+    {
+        return $this->role === 'coach';
+    }
+
+    public function isAthlete()
+    {
+        return $this->role === 'athlete';
+    }
+
+    // Группы, в которых состоит спортсмен
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'athlete_group', 'athlete_id', 'group_id');
+    }
+
+    // Тренировки, которые ведет тренер
+    public function coachedTrainings()
+    {
+        return $this->hasMany(Training::class, 'coach_id');
+    }
+
+    //  Группы, которую ведет тренер
+    public function coachedGroups()
+    {
+        return $this->hasMany(Group::class, 'coach_id');
+    }
+
+    // Посещения спортсмена
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'athlete_id');
+    }
 }

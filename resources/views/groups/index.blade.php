@@ -12,7 +12,7 @@
     <a href="{{ route('groups.create') }}" class="btn btn-primary">Добавить группу</a>
 </div>
 
-<div class="schedule-week">
+<!-- <div class="schedule-week">
     <div class="day-header">Понедельник</div>
     <div class="day-content">
         <div class="day-item">
@@ -60,13 +60,12 @@
             <p>Зал</p>
         </div>
     </div>
-</div>
+</div> -->
 
 <table class="table">
     <thead>
         <tr>
             <th>Название</th>
-            <!-- тренер закрепляется за отдельной группой -->
             <th>Тренер</th> 
             <th>Действия</th>
         </tr>

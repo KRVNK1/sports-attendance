@@ -1,5 +1,7 @@
 /* Стили для раздела групп */
-
+.form-control {
+    resize: vertical;
+}
 .groups-header {
     display: flex;
     justify-content: space-between;

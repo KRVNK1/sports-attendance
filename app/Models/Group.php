@@ -8,19 +8,43 @@ class Group extends Model
 {
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'coach_id'
     ];
 
-    // Спортсмены в группе
-    public function athletes()
+    /**
+     * Получить тренера группы
+     */
+    public function coach()
     {
-        return $this->belongsToMany(User::class, 'athlete_group', 'group_id', 'athlete_id')
-            ->where('role', 'athlete');
+        return $this->belongsTo(User::class, 'coach_id');
     }
 
-    // Тренировки группы
+    // Спортсмены группы
+    public function athletes()
+    {
+        return $this->belongsToMany(User::class, 'athlete_group', 'group_id', 'athlete_id');
+    }
+
+
+    //  Тренировки группы
+     
     public function trainings()
     {
         return $this->hasMany(Training::class);
+    }
+
+    // Кол-во спортсменов в группе
+    
+    public function getAthletesCountAttribute()
+    {
+        return $this->athletes()->count();
+    }
+    
+    // Получить количество тренировок группы
+
+    public function getTrainingsCountAttribute()
+    {
+        return $this->trainings()->count();
     }
 }

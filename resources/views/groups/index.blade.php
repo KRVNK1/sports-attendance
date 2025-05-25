@@ -12,56 +12,6 @@
     <a href="{{ route('groups.create') }}" class="btn btn-primary">Добавить группу</a>
 </div>
 
-<!-- <div class="schedule-week">
-    <div class="day-header">Понедельник</div>
-    <div class="day-content">
-        <div class="day-item">
-            <h3>Название</h3>
-            <p>Время</p>
-            <p>Тренер</p>
-            <p>Зал</p>
-        </div>
-        <div class="day-item">
-            <h3>Название</h3>
-            <p>Время</p>
-            <p>Тренер</p>
-            <p>Зал</p>
-        </div>
-        <div class="day-item">
-            <h3>Название</h3>
-            <p>Время</p>
-            <p>Тренер</p>
-            <p>Зал</p>
-        </div>
-    </div>
-
-    <div class="day-header">Среда</div>
-    <div class="day-content">
-        <div class="day-item">
-            <h3>Название</h3>
-            <p>Время</p>
-            <p>Тренер</p>
-            <p>Зал</p>
-        </div>
-    </div>
-
-    <div class="day-header">Суббота</div>
-    <div class="day-content">
-        <div class="day-item">
-            <h3>Название</h3>
-            <p>Время</p>
-            <p>Тренер</p>
-            <p>Зал</p>
-        </div>
-        <div class="day-item">
-            <h3>Название</h3>
-            <p>Время</p>
-            <p>Тренер</p>
-            <p>Зал</p>
-        </div>
-    </div>
-</div> -->
-
 <table class="table">
     <thead>
         <tr>

@@ -2,6 +2,7 @@
 .form-control {
     resize: vertical;
 }
+
 .groups-header {
     display: flex;
     justify-content: space-between;
@@ -139,5 +140,204 @@
 
     .day-item {
         width: 100%;
+    }
+}
+
+
+
+/* Стили для страницы группы */
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.group-header h1 {
+    margin: 0;
+    color: #333;
+}
+
+.group-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.group-info-card {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 1px solid #e9ecef;
+}
+
+.group-info-card h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-item strong {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.info-item span {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.athletes-section,
+.trainings-section,
+.attendance-stats-section {
+    margin-bottom: 40px;
+}
+
+.athletes-section h3,
+.trainings-section h3,
+.attendance-stats-section h3 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.athletes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.athlete-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.athlete-card h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.athlete-card p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.athlete-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f8f9fa;
+}
+
+.trainings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.training-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.training-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.training-date {
+    font-weight: 600;
+    color: #333;
+}
+
+.training-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.status-upcoming {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-completed {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.training-details p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.training-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.stats-actions {
+    margin-top: 15px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .group-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .group-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .athletes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .training-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .training-actions {
+        flex-direction: column;
     }
 }

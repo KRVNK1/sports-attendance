@@ -77,23 +77,6 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="recurring" name="recurring" value="1" {{ old('recurring') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="recurring">
-                        Повторять еженедельно
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group" id="weeks_count_group" style="{{ old('recurring') ? '' : 'display: none;' }}">
-                <label for="weeks_count" class="form-label">Количество недель:</label>
-                <input type="number" class="form-control" id="weeks_count" name="weeks_count" value="{{ old('weeks_count', 4) }}" min="1" max="12">
-                @error('weeks_count')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
             <div class="form-buttons">
                 <a href="{{ route('schedule.index') }}" class="btn btn-secondary">Отмена</a>
                 <button type="submit" class="btn btn-primary">Добавить</button>
@@ -101,19 +84,4 @@
         </form>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-    const recurringCheckbox = document.getElementById('recurring');
-    const weeksCountGroup = document.getElementById('weeks_count_group');
-
-    recurringCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            weeksCountGroup.style.display = 'block';
-        } else {
-            weeksCountGroup.style.display = 'none';
-        }
-    });
-</script>
 @endsection

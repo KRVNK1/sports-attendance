@@ -71,11 +71,3 @@
 .athlete-attendance-table th {
     background-color: #f1f1f1;
 }
-
-.athlete-attendance-present {
-    color: #28a745;
-}
-
-.athlete-attendance-absent {
-    color: #dc3545;
-}

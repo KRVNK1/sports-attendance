@@ -69,9 +69,9 @@
             <div class="form-group">
                 <label for="status" class="form-label">Статус:</label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="active" {{ old('status', $training->status) == 'active' ? 'selected' : '' }}>Активна</option>
-                    <option value="completed" {{ old('status', $training->status) == 'completed' ? 'selected' : '' }}>Завершена</option>
-                    <option value="cancelled" {{ old('status', $training->status) == 'cancelled' ? 'selected' : '' }}>Отменена</option>
+                    <option value="upcoming" {{ old('status', $training->status) == 'upcoming' ? 'selected' : '' }}>Предстоящая</option>
+                    <option value="active" {{ old('status', $training->status) == 'active' ? 'selected' : '' }}>Активная</option>
+                    <option value="completed" {{ old('status', $training->status) == 'completed' ? 'selected' : '' }}>Завершенная</option>
                 </select>
                 @error('status')
                 <div class="text-danger">{{ $message }}</div>

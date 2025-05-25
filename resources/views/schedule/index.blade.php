@@ -7,6 +7,21 @@
 @endsection
 
 @section('content')
+
+@auth
+@if(auth()->user()->role == 'admin')
+<div class="admin-info">
+    <h3>Административные действия</h3>
+    <div class="quick-actions">
+        <a href="{{ route('attendance.index') }}" class="btn btn-outline-primary">
+            Общая статистика посещаемости
+        </a>
+    </div>
+</div>
+@endif
+@endauth
+
+
 <div class="schedule-header">
     <h1>Расписание</h1>
     @auth
@@ -21,17 +36,33 @@
     Нет запланированных тренировок.
 </div>
 @else
-@foreach($trainingsByDay as $day => $trainings)
+@foreach($trainingsByDay as $dayData)
 <div class="schedule-day">
     <div class="schedule-day-header">
-        {{ $day }}
-        
+        {{ $dayData['day_name'] }}
     </div>
     <div class="schedule-day-content">
-        @foreach($trainings as $training)
+        @foreach($dayData['trainings'] as $training)
         <div class="schedule-item">
             <div class="schedule-item-header">
-                {{ $training->group->name }}
+                <div class="schedule-title">
+                    {{ $training->group->name }}
+                </div>
+                <div class="schedule-status status-{{ $training->status }}">
+                    @switch($training->status)
+                    @case('upcoming')
+                    Предстоящая
+                    @break
+                    @case('active')
+                    Идет сейчас
+                    @break
+                    @case('completed')
+                    Завершена
+                    @break
+                    @default
+                    Неизвестно
+                    @endswitch
+                </div>
             </div>
             <div class="schedule-item-details">
                 <p><strong>Время:</strong> {{ $training->start_time->format('H:i') }} - {{ $training->end_time->format('H:i') }}</p>
@@ -42,16 +73,71 @@
                 @endif
 
                 @auth
-                @if(auth()->user()->role == 'admin' || (auth()->user()->role == 'coach' && auth()->user()->id == $training->group->coach_id))
                 <div class="schedule-actions">
-                    <a href="{{ route('schedule.edit', $training->id) }}" class="btn btn-warning">Редактировать</a>
-                    <form action="{{ route('schedule.destroy', $training->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены?')">Удалить</button>
-                    </form>
+                    {{-- Кнопки управления тренировкой --}}
+                    @if(auth()->user()->role == 'admin' || (auth()->user()->role == 'coach' && auth()->user()->id == $training->group->coach_id))
+                    <div class="management-actions">
+                        <a href="{{ route('schedule.edit', $training->id) }}" class="btn btn-warning btn-sm">
+                            Редактировать
+                        </a>
+
+                        {{-- Кнопки изменения статуса --}}
+                        @if(auth()->user()->role == 'admin' || auth()->user()->role == 'coach')
+                        <div class="status-actions">
+                            @if($training->status != 'upcoming')
+                            <form action="{{ route('schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="upcoming">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Сделать предстоящей</button>
+                            </form>
+                            @endif
+
+                            @if($training->status != 'active')
+                            <form action="{{ route('schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="active">
+                                <button type="submit" class="btn btn-outline-success btn-sm">Сделать активной</button>
+                            </form>
+                            @endif
+
+                            @if($training->status != 'completed')
+                            <form action="{{ route('schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="completed">
+                                <button type="submit" class="btn btn-outline-info btn-sm">Завершить</button>
+                            </form>
+                            @endif
+                        </div>
+                        @endif
+
+                        <form action="{{ route('schedule.destroy', $training->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены?')">
+                                Удалить
+                            </button>
+                        </form>
+                    </div>
+
+                    {{-- Кнопки посещаемости --}}
+                    <div class="attendance-actions">
+                        @if($training->status == 'active' || $training->status == 'upcoming')
+                        <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-success btn-sm">
+                            Отметить посещаемость
+                        </a>
+                        @endif
+
+                        @if($training->status == 'completed')
+                        <a href="{{ route('attendance.show', $training->id) }}" class="btn btn-info btn-sm">
+                            Посмотреть посещаемость
+                        </a>
+                        @endif
+                    </div>
+                    @endif
                 </div>
-                @endif
                 @endauth
             </div>
         </div>
@@ -60,4 +146,6 @@
 </div>
 @endforeach
 @endif
+
+
 @endsection

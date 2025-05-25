@@ -35,8 +35,22 @@ Route::middleware(['auth'])->group(function () {
         // Группы
         Route::resource('groups', GroupController::class);
 
-        // Посещаемость
-        // Route::resource('attendance', AttendanceController::class);
+
+        // Расписание (полный доступ)
+        Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
+        Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+        Route::get('/schedule/{training}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+        Route::put('/schedule/{training}', [ScheduleController::class, 'update'])->name('schedule.update');
+        Route::delete('/schedule/{training}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+        Route::patch('/schedule/{training}/status', [ScheduleController::class, 'updateStatus'])->name('schedule.updateStatus');
+
+        // Посещаемость (полный доступ)
+        Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+        Route::get('/attendance/training/{training}', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+        Route::post('/attendance/training/{training}', [AttendanceController::class, 'storeAttendance'])->name('attendance.store');
+        Route::get('/attendance/training/{training}/show', [AttendanceController::class, 'showAttendance'])->name('attendance.show');
+        Route::get('/attendance/group/{group}', [AttendanceController::class, 'groupAttendance'])->name('attendance.group');
+        Route::patch('/schedule/{training}/status', [ScheduleController::class, 'updateStatus'])->name('schedule.updateStatus');
     });
 
     // Маршруты для тренера
@@ -49,17 +63,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
         Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
 
-        // Расписание (просмотр и редактирование своих тренировок)
-        Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+        // Расписание (создание и редактирование своих тренировок)
         Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
         Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
         Route::get('/schedule/{training}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
         Route::put('/schedule/{training}', [ScheduleController::class, 'update'])->name('schedule.update');
         Route::delete('/schedule/{training}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+        Route::patch('/schedule/{training}/status', [ScheduleController::class, 'updateStatus'])->name('schedule.updateStatus');
 
-        // Посещаемость (отметка присутствия)
-        // Route::get('/attendance/group/{group}', [AttendanceController::class, 'groupAttendance'])->name('attendance.group');
-        // Route::post('/attendance/mark', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+        // Посещаемость (отметка для своих тренировок)
+        Route::get('/attendance/training/{training}', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+        Route::post('/attendance/training/{training}', [AttendanceController::class, 'storeAttendance'])->name('attendance.store');
+        Route::get('/attendance/training/{training}/show', [AttendanceController::class, 'showAttendance'])->name('attendance.show');
+        Route::get('/attendance/group/{group}', [AttendanceController::class, 'groupAttendance'])->name('attendance.group');
     });
 
     // Маршруты для спортсмена

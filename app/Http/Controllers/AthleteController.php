@@ -39,7 +39,7 @@ class AthleteController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'birth' => $request->birth,
-            'password' => bcrypt($request->password),
+            'password' => $request->password,
             'role' => 'athlete'
         ]);
 

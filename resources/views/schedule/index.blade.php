@@ -74,14 +74,12 @@
 
                 @auth
                 <div class="schedule-actions">
-                    {{-- Кнопки управления тренировкой --}}
+                    <!-- Кнопки управления тренировкой  -->
+                    <!-- Если авторизированный пользователь админ или тренер, и id   -->
                     @if(auth()->user()->role == 'admin' || (auth()->user()->role == 'coach' && auth()->user()->id == $training->group->coach_id))
                     <div class="management-actions">
-                        <a href="{{ route('schedule.edit', $training->id) }}" class="btn btn-warning btn-sm">
-                            Редактировать
-                        </a>
-
-                        {{-- Кнопки изменения статуса --}}
+                        
+                        <!-- Кнопки изменения статуса  -->
                         @if(auth()->user()->role == 'admin' || auth()->user()->role == 'coach')
                         <div class="status-actions">
                             @if($training->status != 'upcoming')
@@ -112,6 +110,10 @@
                             @endif
                         </div>
                         @endif
+
+                        <a href="{{ route('schedule.edit', $training->id) }}" class="btn btn-warning btn-sm">
+                            Редактировать
+                        </a>
 
                         <form action="{{ route('schedule.destroy', $training->id) }}" method="POST" style="display: inline;">
                             @csrf

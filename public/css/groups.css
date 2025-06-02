@@ -1,216 +1,85 @@
-/* Стили для раздела групп */
-.form-control {
-    resize: vertical;
-}
 
+/* Заголовок группы */
 .groups-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.group-card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.group-info {
-    margin-bottom: 15px;
-}
-
-.group-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.group-form {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.group-form-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-/* Расписание по дням недели */
-.day-header {
-    background-color: #0d6efd;
-    color: white;
-    padding: 10px 15px;
-    font-weight: bold;
-    margin-top: 20px;
-    border-radius: 5px 5px 0 0;
-}
-
-.day-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 0 0 5px 5px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.day-item {
-    flex: 1;
-    min-width: 200px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.day-item h3 {
-    margin-top: 0;
-    color: #0d6efd;
-}
-
-/* Плавающая кнопка добавления */
-.add-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background-color: #0d6efd;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.add-button:hover {
-    background-color: #0b5ed7;
-    color: white;
-}
-
-.add-button .icon {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* Нижняя панель навигации */
-.button-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: white;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 900;
-}
-
-.button-panel button {
-    border: none;
-    background: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-    color: #555;
-}
-
-.button-panel button img {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 5px;
-}
-
-@media (max-width: 768px) {
-    .day-content {
-        flex-direction: column;
-    }
-
-    .day-item {
-        width: 100%;
-    }
-}
-
-
-
-/* Стили для страницы группы */
-.group-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 30px;
-    padding-bottom: 20px;
     border-bottom: 2px solid #f8f9fa;
 }
+
+
 
 .group-header h1 {
     margin: 0;
     color: #333;
+    font-size: 2.2em;
+    font-weight: 600;
 }
 
 .group-actions {
     display: flex;
     gap: 10px;
+    margin: 30px 0;
+    flex-wrap: wrap;
 }
 
+/* Карточка с основной информацией */
 .group-info-card {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: 25px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 30px;
     border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .group-info-card h3 {
     margin-bottom: 20px;
     color: #333;
+    font-size: 1.4em;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
 }
 
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+    gap: 20px;
 }
 
 .info-item {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .info-item strong {
     color: #6c757d;
     font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .info-item span {
     font-size: 1.1em;
     color: #333;
+    font-weight: 500;
 }
 
-.athletes-section,
-.trainings-section,
-.attendance-stats-section {
+/* Секция спортсменов */
+.athletes-section {
     margin-bottom: 40px;
 }
 
-.athletes-section h3,
-.trainings-section h3,
-.attendance-stats-section h3 {
+.athletes-section h3 {
     margin-bottom: 20px;
     color: #333;
+    font-size: 1.4em;
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
 }
@@ -227,104 +96,342 @@
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.athlete-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .athlete-card h4 {
     margin-bottom: 15px;
     color: #333;
+    font-size: 1.2em;
 }
 
 .athlete-card p {
-    margin: 5px 0;
+    margin: 8px 0;
     font-size: 0.9em;
+    color: #555;
 }
 
-.athlete-actions {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #f8f9fa;
+.athlete-card strong {
+    color: #6c757d;
 }
 
-.trainings-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.training-card {
+/* Блок с расписанием тренировок (перенесенный из attendance) */
+.card-body {
     background: white;
     border: 1px solid #e9ecef;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card-body h3 {
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 1.4em;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* Список тренировок */
+.trainings-list {
+    margin-bottom: 25px;
+}
+
+.training-item {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 25px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.training-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
 .training-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #f8f9fa;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f8f9fa;
 }
 
-.training-date {
-    font-weight: 600;
+.training-header h4 {
+    margin: 0;
     color: #333;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
-.training-status {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85em;
+.training-time {
+    color: #6c757d;
     font-weight: 500;
-}
-
-.status-upcoming {
-    background-color: #fff3cd;
-    color: #856404;
-}
-
-.status-active {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.status-completed {
-    background-color: #d1ecf1;
-    color: #0c5460;
-}
-
-.training-details p {
-    margin: 5px 0;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 0.9em;
 }
 
-.training-actions {
-    margin-top: 15px;
+/* Сводка посещаемости */
+.attendance-summary {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.summary-numbers {
+    display: flex;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
-.stats-actions {
+.present-count {
+    color: #28a745;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.present-count::before {
+    content: "✓";
+    margin-right: 8px;
+    font-size: 16px;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.absent-count {
+    color: #dc3545;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.absent-count::before {
+    content: "✗";
+    margin-right: 8px;
+    font-size: 16px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* Бейджи спортсменов */
+.athletes-attendance {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 15px;
+}
+
+.athlete-badge {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.athlete-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.athlete-badge.present {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.athlete-badge.absent {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Блок без посещаемости */
+.no-attendance {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff3cd;
+    border-radius: 8px;
+    border: 1px solid #ffeaa7;
+    margin-top: 15px;
+}
+
+.text-muted {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.95em;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #545b62;
+}
+
+.btn-warning {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #0b5ed7;
+
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/* Алерты */
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid transparent;
+    font-size: 0.95em;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
     .group-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
     }
 
+    .group-header h1 {
+        font-size: 1.8em;
+    }
+
     .group-actions {
         width: 100%;
-        flex-wrap: wrap;
+        justify-content: flex-start;
     }
 
     .info-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     .athletes-grid {
@@ -337,7 +444,105 @@
         gap: 10px;
     }
 
-    .training-actions {
+    .attendance-summary {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .summary-numbers {
+        gap: 15px;
+    }
+
+    .athletes-attendance {
+        gap: 8px;
+    }
+
+    .athlete-badge {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .group-header h1 {
+        font-size: 1.6em;
+    }
+
+    .group-info-card,
+    .card-body {
+        padding: 20px;
+    }
+
+    .training-item {
+        padding: 20px;
+    }
+
+    .athlete-card {
+        padding: 15px;
+    }
+
+    .info-item {
+        padding: 12px;
+    }
+
+    .present-count::before,
+    .absent-count::before {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+}
+
+/* Анимации */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили для печати */
+@media print {
+
+    .group-actions,
+    .btn,
+    .form-buttons {
+        display: none;
+    }
+
+    .training-item,
+    .athlete-card,
+    .group-info-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    .container {
+        max-width: none;
+        padding: 0;
     }
 }

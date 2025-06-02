@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class CoachController extends Controller
 {
+    // Страница тренеров
     public function index()
     {
         $coaches = User::where('role', 'coach')->get();
@@ -24,9 +25,9 @@ class CoachController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|min:11|max:11',
             'birth' => 'required|date',
-            'password' => 'required|min:6'
+            'password' => 'required|min:8'
         ]);
 
         User::create([
@@ -35,7 +36,7 @@ class CoachController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'birth' => $request->birth,
-            'password' => bcrypt($request->password),
+            'password' => $request->password,
             'role' => 'coach'
         ]);
 
@@ -47,13 +48,14 @@ class CoachController extends Controller
         return view('coaches.edit', compact('coach'));
     }
 
+    // Обновление информации тренера
     public function update(Request $request, User $coach)
     {
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required|email|unique:users,email,' . $coach->id,
-            'phone' => 'required',
+            'phone' => 'required|min:11|max:11',
             'birth' => 'required|date'
         ]);
 
@@ -62,6 +64,7 @@ class CoachController extends Controller
         return redirect()->route('coaches.index')->with('success', 'Данные тренера обновлены');
     }
 
+    // Удаление тренера
     public function destroy(User $coach)
     {
         $coach->delete();

@@ -19,7 +19,7 @@ class Attendance extends Model
     // Сама тренировка
     public function training()
     {
-        return $this->belongsTo(Training::class);
+        return $this->belongsTo(Training::class); // посещение принадлежит одной тренировке
     }
 
     // Спортсмен

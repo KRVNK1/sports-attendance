@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Показать статистику посещаемости по всем группам (только для админа)
-     */
+    // Статистика по группам
     public function index()
     {
         $user = Auth::user();
@@ -32,9 +30,7 @@ class AttendanceController extends Controller
         return view('attendance.index', compact('groups'));
     }
 
-    /**
-     * Показать форму для отметки посещаемости конкретной тренировки
-     */
+    // Отметка посещаемости
     public function markAttendance(Training $training)
     {
         $user = Auth::user();
@@ -54,15 +50,13 @@ class AttendanceController extends Controller
 
         // Получаем уже отмеченную посещаемость
         $existingAttendance = Attendance::where('training_id', $training->id)
-            ->pluck('present', 'athlete_id')
-            ->toArray();
+            ->pluck('present', 'athlete_id') // pluck - извлекает из массива existingAttendance посещения у спортсмена 
+            ->toArray(); // преобразует в массив
 
         return view('attendance.mark', compact('training', 'athletes', 'existingAttendance'));
     }
 
-    /**
-     * Сохранить отметки посещаемости
-     */
+    // Сохранение посещаемости
     public function storeAttendance(Request $request, Training $training)
     {
         $user = Auth::user();
@@ -78,14 +72,16 @@ class AttendanceController extends Controller
         }
 
         $request->validate([
-            'attendance' => 'array',
-            'attendance.*' => 'boolean'
+            'attendance' => 'array', // является ли массивом
+            'attendance.*' => 'boolean' // все элементы массива имеют булевый тип(true/false)
         ]);
 
         // Получаем всех спортсменов группы
         $athletes = $training->group->athletes;
 
+        // Цикл прохода по спортсменам
         foreach ($athletes as $athlete) {
+            // Проверяем, отмечен ли спортсмен как присутствующий (если чекбокс отмечен)
             $present = isset($request->attendance[$athlete->id]) ? true : false;
 
             // Обновляем или создаем запись о посещаемости
@@ -104,9 +100,7 @@ class AttendanceController extends Controller
             ->with('success', 'Посещаемость успешно отмечена');
     }
 
-    /**
-     * Показать посещаемость для конкретной тренировки
-     */
+    // Показ посещаемости
     public function showAttendance(Training $training)
     {
         $user = Auth::user();
@@ -129,33 +123,4 @@ class AttendanceController extends Controller
         return view('attendance.show', compact('training', 'attendances'));
     }
 
-    /**
-     * Показать общую статистику посещаемости для группы
-     */
-    public function groupAttendance(Group $group)
-    {
-        $user = Auth::user();
-
-        // Проверяем права доступа
-        if (!$user->isAdmin() && !$user->isCoach()) {
-            abort(403, 'У вас нет прав для просмотра посещаемости');
-        }
-
-        // Если пользователь тренер, проверяем, что это его группа
-        if ($user->isCoach() && $group->coach_id !== $user->id) {
-            abort(403, 'Вы можете просматривать посещаемость только для своих групп');
-        }
-
-        // Получаем тренировки группы с посещаемостью
-        $trainings = Training::where('group_id', $group->id)
-            ->where('status', 'completed')
-            ->with(['attendances.athlete'])
-            ->orderBy('start_time', 'desc')
-            ->get();
-
-        // Получаем всех спортсменов группы
-        $athletes = $group->athletes;
-
-        return view('attendance.group', compact('group', 'trainings', 'athletes'));
-    }
 }

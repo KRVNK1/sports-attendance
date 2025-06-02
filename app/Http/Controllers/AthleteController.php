@@ -9,27 +9,31 @@ use Illuminate\Support\Facades\Auth;
 
 class AthleteController extends Controller
 {
+
+    // Страница спортсмены
     public function index()
     {
         $athletes = User::where('role', 'athlete')->get();
         return view('athletes.index', compact('athletes'));
     }
 
+    // Создание спортсмена
     public function create()
     {
         $groups = Group::all();
         return view('athletes.create', compact('groups'));
     }
 
+    // Сохранение спортсмена
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|min:11|max:11',
             'birth' => 'required|date',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
             'group_id' => 'nullable|exists:groups,id'
         ]);
 
@@ -43,6 +47,7 @@ class AthleteController extends Controller
             'role' => 'athlete'
         ]);
 
+        // Если группа выбрана, то спортсмен присоеденияется(добавляется) к группе
         if ($request->group_id) {
             $athlete->groups()->attach($request->group_id);
         }
@@ -61,14 +66,16 @@ class AthleteController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required|email|unique:users,email,' . $athlete->id,
-            'phone' => 'required',
+            'email' => 'required|email|unique:users,email,' . $athlete->id, //
+            'phone' => 'required|min:11|max:11',
             'birth' => 'required|date',
             'group_id' => 'nullable|exists:groups,id'
         ]);
 
+        // only - выборка определенных полей 
         $athlete->update($request->only(['name', 'surname', 'email', 'phone', 'birth']));
 
+        // Если группа выбрана, то спортсмен присоеденияется(добавляется) к группе
         if ($request->group_id) {
             $athlete->groups()->sync($request->group_id);
         }
@@ -76,12 +83,14 @@ class AthleteController extends Controller
         return redirect()->route('athletes.index')->with('success', 'Данные спортсмена обновлены');
     }
 
+    // Удаление пользователя
     public function destroy(User $athlete)
     {
         $athlete->delete();
         return redirect()->route('athletes.index')->with('success', 'Спортсмен удален');
     }
 
+    // Профиль для спорстмена
     public function profile()
     {
         // Получаем текущего аутентифицированного пользователя

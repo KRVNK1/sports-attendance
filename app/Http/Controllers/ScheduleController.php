@@ -10,32 +10,30 @@ use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
-    /**
-     * Показать расписание тренировок
-     */
+    // Расписание тренировок(главная страница)
     public function index()
     {
-        // Начинаем запрос с базовыми связями
+        // Тренировки с тренером и сортировка по start_time
         $query = Training::with(['group.coach'])
             ->orderBy('start_time');
 
         // Проверяем роль пользователя и фильтруем тренировки
         $user = Auth::user();
 
+        // Неавторизованные пользователи и спортсмены видят только предстоящие и активные тренировки
         if (!$user || $user->role === 'athlete') {
-            // Неавторизованные пользователи и спортсмены видят только предстоящие и активные тренировки
             $query->whereIn('status', ['upcoming', 'active']);
         }
-        // Администраторы и тренеры видят все тренировки (не добавляем фильтр)
 
         $trainings = $query->get();
 
-        // Группируем тренировки по дням
+        // Группируем тренировки по дням и возвращаем данные для отображения
         $trainingsByDay = $trainings->groupBy(function ($training) {
             return $training->start_time->format('Y-m-d');
         })->map(function ($dayTrainings, $date) {
-            $carbonDate = Carbon::parse($date);
-            $dayName = $this->getDayName($carbonDate);
+            // Для каждой группы тренировок формируем структуру с датой, названием дня и списком тренировок
+            $carbonDate = Carbon::parse($date); // Преобразуем строку даты в объект Carbon для работы с датой
+            $dayName = $this->getDayName($carbonDate); // Получаем локализованное название дня недели с датой; getDayName - функция ниже
             return [
                 'date' => $date,
                 'day_name' => $dayName,
@@ -46,10 +44,7 @@ class ScheduleController extends Controller
         return view('schedule.index', compact('trainingsByDay'));
     }
 
-
-    /**
-     * Получить название дня недели на русском
-     */
+    // Получить название дня недели на русском
     private function getDayName($date)
     {
         $days = [
@@ -65,9 +60,7 @@ class ScheduleController extends Controller
         return $days[$date->format('l')] . ', ' . $date->format('d.m.Y');
     }
 
-    /**
-     * Показать форму создания тренировки
-     */
+    // Форма создания тренировки
     public function create()
     {
         $user = Auth::user();
@@ -87,9 +80,7 @@ class ScheduleController extends Controller
         return view('schedule.create', compact('groups'));
     }
 
-    /**
-     * Сохранить новую тренировку
-     */
+    // Сохранить новую тренировку
     public function store(Request $request)
     {
         // Проверяем данные формы (изменили валидацию для времени)
@@ -120,8 +111,9 @@ class ScheduleController extends Controller
         $targetDate = $today->copy();
 
         // Находим следующий день недели (1 = понедельник, 7 = воскресенье)
+        // targetDate - сегодняшняя дата, dayOfWeek - свойство Carbon, возвращает номер дня недели текущей даты (1-7), 
         while ($targetDate->dayOfWeek != $dayOfWeek) {
-            $targetDate->addDay();
+            $targetDate->addDay(); // addDay() - метод Carbon, добавляет один день к дате
         }
 
         // Создаем полные даты и времена
@@ -142,9 +134,8 @@ class ScheduleController extends Controller
             ->with('success', 'Тренировка успешно создана на ' . $fullStartTime->format('d.m.Y'));
     }
 
-    /**
-     * Показать форму редактирования тренировки
-     */
+    
+    // Форма редактирования тренировки
     public function edit(Training $training)
     {
         $user = Auth::user();
@@ -164,9 +155,7 @@ class ScheduleController extends Controller
         return view('schedule.edit', compact('training', 'groups'));
     }
 
-    /**
-     * Обновить тренировку
-     */
+    // Обновление тренировки
     public function update(Request $request, Training $training)
     {
         // Проверяем данные формы (добавили status в валидацию)
@@ -200,9 +189,7 @@ class ScheduleController extends Controller
             ->with('success', 'Тренировка успешно обновлена');
     }
 
-    /**
-     * Удалить тренировку
-     */
+    // Удаление тренировки
     public function destroy(Training $training)
     {
         $user = Auth::user();
@@ -218,9 +205,7 @@ class ScheduleController extends Controller
             ->with('success', 'Тренировка успешно удалена');
     }
 
-    /**
-     * Изменить статус тренировки (упрощенная версия)
-     */
+    // Изменение статуса тренировки
     public function updateStatus(Training $training, Request $request)
     {
         // Проверяем, что статус правильный
@@ -230,12 +215,12 @@ class ScheduleController extends Controller
 
         $user = Auth::user();
 
-        // Проверяем права доступа
+        // Если пользователь тренер и его id тренировки не совпадает с id тренера
         if ($user->role === 'coach' && $training->group->coach_id !== $user->id) {
             return redirect()->back()->with('error', 'Вы можете изменять статус только своих тренировок');
         }
 
-        // Просто меняем статус на тот, что пришел из формы
+        // Смена статуса на тот, что пришел из формы
         $training->status = $request->status;
         $training->save();
 

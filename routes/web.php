@@ -49,7 +49,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/attendance/training/{training}', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
         Route::post('/attendance/training/{training}', [AttendanceController::class, 'storeAttendance'])->name('attendance.store');
         Route::get('/attendance/training/{training}/show', [AttendanceController::class, 'showAttendance'])->name('attendance.show');
-        Route::get('/attendance/group/{group}', [AttendanceController::class, 'groupAttendance'])->name('attendance.group');
         Route::patch('/schedule/{training}/status', [ScheduleController::class, 'updateStatus'])->name('schedule.updateStatus');
     });
 
@@ -75,7 +74,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/attendance/training/{training}', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
         Route::post('/attendance/training/{training}', [AttendanceController::class, 'storeAttendance'])->name('attendance.store');
         Route::get('/attendance/training/{training}/show', [AttendanceController::class, 'showAttendance'])->name('attendance.show');
-        Route::get('/attendance/group/{group}', [AttendanceController::class, 'groupAttendance'])->name('attendance.group');
     });
 
     // Маршруты для спортсмена

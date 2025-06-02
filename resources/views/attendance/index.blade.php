@@ -56,10 +56,7 @@
             </div>
 
             <div class="group-actions">
-                <a href="{{ route('attendance.group', $group->id) }}" class="btn btn-primary btn-sm">
-                    Посещаемость группы
-                </a>
-                <a href="{{ route('groups.show', $group->id) }}" class="btn btn-outline-secondary btn-sm">
+                <a href="{{ route('groups.show', $group->id) }}" class="btn btn-primary">
                     Информация о группе
                 </a>
             </div>

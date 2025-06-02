@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label for="birth" class="form-label">Дата рождения:</label>
-                <input type="date" class="form-control" id="birth" name="birth" value="{{ old('birth', $coach->birth) }}" required>
+                <input type="date" class="form-control" id="birth" name="birth" value="{{ old('birth', $coach->birth) }}" min="1950-01-01" max="2025-12-31" required>
                 @error('birth')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror

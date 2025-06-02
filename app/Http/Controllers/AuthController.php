@@ -31,11 +31,13 @@ class AuthController extends Controller
         ]);
     }
 
+    // Страница регистрации
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
+    // РЕгистрация пользователя
     public function register(Request $request)
     {
         $request->validate([
@@ -54,7 +56,7 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'birth' => $request->birth,
             'password' => Hash::make($request->password),
-            'role' => 'athlete', // По умолчанию регистрируем как спортсмена
+            'role' => 'athlete', // По умолчанию регистрация, как спортсмена
         ]);
 
         Auth::login($user);

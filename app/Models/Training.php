@@ -23,33 +23,25 @@ class Training extends Model
         'end_time' => 'datetime',
     ];
 
-    /**
-     * Получить группу тренировки
-     */
+    // Группа тренировки
     public function group()
     {
         return $this->belongsTo(Group::class);
     }
 
-    /**
-     * Получить тренера через группу
-     */
+    // Тренер
     public function coach()
     {
         return $this->group->coach();
     }
 
-    /**
-     * Получить посещаемость тренировки
-     */
+    // Посещаемость тренировки
     public function attendances()
     {
         return $this->hasMany(Attendance::class);
     }
 
-    /**
-     * Получить день недели тренировки
-     */
+    // День недели тренировки
     public function getDayOfWeekAttribute()
     {
         $days = [
@@ -65,17 +57,13 @@ class Training extends Model
         return $days[$this->start_time->dayOfWeek];
     }
 
-    /**
-     * Получить время начала тренировки в формате часы:минуты
-     */
+    // Получить время начала тренировки в формате часы:минуты
     public function getStartTimeFormattedAttribute()
     {
         return $this->start_time->format('H:i');
     }
 
-    /**
-     * Получить время окончания тренировки в формате часы:минуты
-     */
+    // Получить время окончания тренировки в формате часы:минуты
     public function getEndTimeFormattedAttribute()
     {
         return $this->end_time->format('H:i');

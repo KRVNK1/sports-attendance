@@ -73,61 +73,63 @@
     </div>
 
     <!-- Расписание тренировок -->
-    <div class="trainings-section">
+    
+    <div class="card-body">
         <h3>Расписание тренировок</h3>
+
         @if($group->trainings->count() > 0)
         <div class="trainings-list">
-            @foreach($group->trainings->sortBy('start_time') as $training)
-            <div class="training-card">
+            @foreach($group->trainings as $training)
+            <div class="training-item">
                 <div class="training-header">
-                    <div class="training-date">
-                        {{ $training->start_time->format('d.m.Y') }} ({{ $training->dayOfWeek }})
-                    </div>
-                    <div class="training-status status-{{ $training->status }}">
-                        @switch($training->status)
-                        @case('upcoming')
-                        Предстоящая
-                        @break
-                        @case('active')
-                        Активная
-                        @break
-                        @case('completed')
-                        Завершена
-                        @break
-                        @default
-                        Неизвестно
-                        @endswitch
-                    </div>
+                    <h4>{{ $training->start_time->format('d.m.Y') }} ({{ $training->dayOfWeek }})</h4>
+                    <span class="training-time">{{ $training->start_time->format('H:i') }} - {{ $training->end_time->format('H:i') }}</span>
                 </div>
-                <div class="training-details">
-                    <p><strong>Время:</strong> {{ $training->start_time->format('H:i') }} - {{ $training->end_time->format('H:i') }}</p>
-                    <p><strong>Место:</strong> {{ $training->location }}</p>
-                    @if($training->notes)
-                    <p><strong>Примечания:</strong> {{ $training->notes }}</p>
-                    @endif
+
+                @if($training->attendances->count() > 0)
+                <div class="attendance-summary">
+                    <div class="summary-numbers">
+                        <span class="present-count">
+                            Присутствовали: {{ $training->attendances->where('present', true)->count() }}
+                        </span>
+                        <span class="absent-count">
+                            Отсутствовали: {{ $training->attendances->where('present', false)->count() }}
+                        </span>
+                    </div>
+                    <a href="{{ route('attendance.show', $training->id) }}" class="btn btn-sm btn-outline">
+                        Подробнее
+                    </a>
                 </div>
-                @auth
-                @if(auth()->user()->role == 'admin' || (auth()->user()->role == 'coach' && auth()->user()->id == $group->coach_id))
-                <div class="training-actions">
-                    <a href="{{ route('schedule.edit', $training->id) }}" class="btn btn-sm btn-warning">Редактировать</a>
-                    @if($training->status == 'active' || $training->status == 'upcoming')
-                    <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-sm btn-success">Отметить посещаемость</a>
-                    @endif
-                    @if($training->status == 'completed')
-                    <a href="{{ route('attendance.show', $training->id) }}" class="btn btn-sm btn-info">Посмотреть посещаемость</a>
+
+                <div class="athletes-attendance">
+                    @foreach($training->attendances as $attendance)
+                    <span class="athlete-badge {{ $attendance->present ? 'present' : 'absent' }}">
+                        {{ $attendance->athlete->surname }} {{ $attendance->athlete->name }}
+                    </span>
+                    @endforeach
+                </div>
+                @else
+                <div class="no-attendance">
+                    <span class="text-muted">Посещаемость не отмечена</span>
+                    @if(Auth::user()->isAdmin() || (Auth::user()->isCoach() && $group->coach_id === Auth::user()->id))
+                    <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-sm btn-primary">
+                        Отметить посещаемость
+                    </a>
                     @endif
                 </div>
                 @endif
-                @endauth
             </div>
             @endforeach
         </div>
         @else
         <div class="alert alert-info">
-            Для этой группы пока нет запланированных тренировок.
+            У этой группы пока нет завершенных тренировок.
         </div>
         @endif
-    </div>
 
+        <div class="form-buttons">
+            <a href="{{ route('attendance.index') }}" class="btn btn-secondary">Назад к группам</a>
+        </div>
+    </div>
 </div>
 @endsection

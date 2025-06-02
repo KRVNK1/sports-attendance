@@ -35,13 +35,6 @@
                     @enderror
                 </div>
 
-                <div class="auth-form-check">
-                    <input class="auth-form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="remember">
-                        Запомнить меня
-                    </label>
-                </div>
-
                 <div class="auth-form-group">
                     <button type="submit" class="btn btn-primary auth-btn-block">
                         Войти

@@ -24,7 +24,7 @@ class CoachController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email:rfc,dns|unique:users',
             'phone' => 'required|min:11|max:11',
             'birth' => 'required|date',
             'password' => 'required|min:8'
@@ -54,7 +54,7 @@ class CoachController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required|email|unique:users,email,' . $coach->id,
+            'email' => 'required|email:rfc,dns|unique:users,email,' . $coach->id,
             'phone' => 'required|min:11|max:11',
             'birth' => 'required|date'
         ]);

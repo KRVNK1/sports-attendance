@@ -30,7 +30,7 @@ class AthleteController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email:rfc,dns|unique:users',
             'phone' => 'required|min:11|max:11',
             'birth' => 'required|date',
             'password' => 'required|min:8',
@@ -66,7 +66,7 @@ class AthleteController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required|email|unique:users,email,' . $athlete->id, //
+            'email' => 'required|email:rfc,dns|unique:users,email,' . $athlete->id, //
             'phone' => 'required|min:11|max:11',
             'birth' => 'required|date',
             'group_id' => 'nullable|exists:groups,id'

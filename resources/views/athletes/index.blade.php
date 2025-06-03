@@ -9,7 +9,9 @@
 @section('content')
 <div class="athletes-header">
     <h1>Спортсмены</h1>
+    @if(auth()->user()->role == 'admin')
     <a href="{{ route('athletes.create') }}" class="btn btn-primary">Добавить спортсмена</a>
+    @endif
 </div>
 
 <table class="table">
@@ -37,12 +39,16 @@
             </td>
             <td>
                 <div class="btn-group">
+                    @if(auth()->user()->role == 'admin')
                     <a href="{{ route('athletes.edit', $athlete->id) }}" class="btn btn-warning">Редактировать</a>
                     <form action="{{ route('athletes.destroy', $athlete->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены?')">Удалить</button>
                     </form>
+                    @else
+                    <span style="color:grey">Недоступно</span>
+                    @endif
                 </div>
             </td>
         </tr>

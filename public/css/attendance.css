@@ -626,6 +626,7 @@
 
 .stat-card {
     width: 300px;
+    background-color: white;
     border: 1px solid #e9ecef;
     border-radius: 12px;
     padding: 25px;
@@ -1074,29 +1075,5 @@
 
     100% {
         background-position: -200% 0;
-    }
-}
-
-/* Print Styles */
-@media print {
-
-    .page-header .btn,
-    .group-actions,
-    .training-card-actions {
-        display: none;
-    }
-
-    .group-card,
-    .training-card,
-    .stat-card {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #000;
-    }
-
-    .stats-grid,
-    .groups-grid,
-    .trainings-grid {
-        gap: 10px;
     }
 }

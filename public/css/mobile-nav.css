@@ -1,0 +1,107 @@
+    /* Мобильная навигация */
+    .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        z-index: 1001;
+    }
+
+    .mobile-menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-6px, 7px);
+        background-color: black;
+
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+        background-color: black;
+    }
+
+    /* Мобильное меню */
+    @media (max-width: 768px) {
+        .mobile-menu-toggle {
+            display: flex;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0d6efd;
+            z-index: 1000;
+            margin-top: 60px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu .navbar-nav {
+            padding: 0 20px;
+        }
+
+        .mobile-menu .nav-item {
+            margin: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu .nav-link {
+            display: block;
+            padding: 15px 0;
+            font-size: 18px;
+                color: white;
+            text-decoration: none;
+        }
+
+        .mobile-menu .navbar-right {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        
+    }
+
+    /* Десктопная версия */
+    @media (min-width: 769px) {
+        .mobile-menu {
+            display: flex;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .mobile-menu .navbar-nav {
+            flex-direction: row;
+            padding: 0;
+        }
+
+        .mobile-menu .nav-link {
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+        .mobile-menu .navbar-right {
+            margin: 0;
+            padding: 0;
+            border: none;
+            margin-left: auto;
+        }
+    }

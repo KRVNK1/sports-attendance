@@ -23,16 +23,6 @@ class UserSeeder extends Seeder
                 'password' => '12345678',
                 'role' => 'admin'
             ],
-            
-            [
-                'name' => 'Никита',
-                'surname' => 'Курашов',
-                'email' => 'krvnk@bk.ru',
-                'phone' => '89086402804',
-                'birth' => '2005-12-14',
-                'password' => '12345678',
-                'role' => 'athlete'
-            ],
 
             [
                 'name' => 'Тренер',
@@ -55,7 +45,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Тренер',
                 'surname' => 'Смирнов',
-                'email' => 'smirniy@bk.ru',
+                'email' => 'smirnov@bk.ru',
                 'phone' => '89025143026',
                 'birth' => '2005-12-22',
                 'password' => '12345678',

@@ -15,22 +15,23 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
+        // pluck - 
         $coaches = User::where('role', 'coach')->pluck('id')->toArray();
 
         $groups = [
             [
                 'name' => 'Взрослые',
-                'description' => '123',
+                'description' => 'Группа для взрослых спортсменов. Тренировки направлены на поддержание физической формы и совершенствование техники.',
                 'coach_id' => $coaches[0],
             ],
             [
                 'name' => 'Дети',
-                'description' => '123',
+                'description' => 'Детская группа для начинающих спортсменов. Основной упор на изучение базовых элементов и развитие координации',
                 'coach_id' => $coaches[1],
             ],
             [
                 'name' => 'Юниоры',
-                'description' => '123',
+                'description' => 'Группа для подростков с базовой подготовкой. Интенсивные тренировки с элементами соревновательной подготовки.',
                 'coach_id' => $coaches[2],
             ]
         ];

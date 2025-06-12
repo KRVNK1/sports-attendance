@@ -429,6 +429,10 @@
         justify-content: flex-start;
     }
 
+    .group-actions form {
+        width: 100%;
+    }
+
     .info-grid {
         grid-template-columns: 1fr;
         gap: 15px;

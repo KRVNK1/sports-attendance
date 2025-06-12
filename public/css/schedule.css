@@ -44,6 +44,7 @@
 
 .schedule-actions {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 10px;
     gap: 10px;
 }
@@ -95,3 +96,12 @@
     margin-bottom: 10px;
 }
 
+.green {
+    background-color: green;
+    color: white;
+}
+
+.yellow {
+    background-color: rgb(255, 153, 0);
+    color: white;
+}

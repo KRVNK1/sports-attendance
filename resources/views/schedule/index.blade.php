@@ -127,13 +127,13 @@
                     {{-- Кнопки посещаемости --}}
                     <div class="attendance-actions">
                         @if($training->status == 'active' || $training->status == 'upcoming')
-                        <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-success btn-sm">
+                        <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-success btn-sm yellow">
                             Отметить посещаемость
                         </a>
                         @endif
 
                         @if($training->status == 'completed')
-                        <a href="{{ route('attendance.show', $training->id) }}" class="btn btn-info btn-sm">
+                        <a href="{{ route('attendance.show', $training->id) }}" class="btn btn-info btn-sm green">
                             Посмотреть посещаемость
                         </a>
                         @endif

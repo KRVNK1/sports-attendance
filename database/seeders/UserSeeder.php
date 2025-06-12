@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             ],
 
             [
-                'name' => 'Тренер',
+                'name' => 'Евгений',
                 'surname' => 'Иванов',
                 'email' => 'ivanov@bk.ru',
                 'phone' => '89085402804',
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
                 'role' => 'coach'
             ],
             [
-                'name' => 'Тренер',
+                'name' => 'Дарья',
                 'surname' => 'Беляева',
                 'email' => 'belyaeva@bk.ru',
                 'phone' => '89025143027',
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
                 'role' => 'coach'
             ],
             [
-                'name' => 'Тренер',
+                'name' => 'Иван',
                 'surname' => 'Смирнов',
                 'email' => 'smirnov@bk.ru',
                 'phone' => '89025143026',

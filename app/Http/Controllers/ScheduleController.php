@@ -81,7 +81,7 @@ class ScheduleController extends Controller
     }
 
     // Сохранить новую тренировку
-    public function store(Request $request)
+    public function store(Request $request, Training $training)
     {
         // Проверяем данные формы (изменили валидацию для времени)
         $request->validate([
@@ -120,6 +120,28 @@ class ScheduleController extends Controller
         $fullStartTime = $targetDate->copy()->setTimeFromTimeString($startTime);
         $fullEndTime = $targetDate->copy()->setTimeFromTimeString($endTime);
 
+        $conflicts = Training::where('group_id', $request->group_id)
+            ->where(function ($query) use ($fullStartTime, $fullEndTime) {
+                $query->where(function ($q) use ($fullStartTime, $fullEndTime) {
+                    // Новая тренировка начинается во время существующей
+                    $q->where('start_time', '<=', $fullStartTime)
+                        ->where('end_time', '>', $fullEndTime);
+                })->orWhere(function ($q) use ($fullEndTime) {
+                    // Новая тренировка заканчивается во время существующей
+                    $q->where('start_time', '<', $fullEndTime)
+                        ->where('end_time', '>=', $fullEndTime);
+                })->orWhere(function ($q) use ($fullStartTime, $fullEndTime) {
+                    // Новая тренировка полностью перекрывает существующую
+                    $q->where('start_time', '>=', $fullStartTime)
+                        ->where('end_time', '<=', $fullEndTime);
+                });
+            });
+
+        // Если есть конфликт
+        if ($conflicts) {
+            return redirect()->back()->with('error', 'У группы уже есть тренировка в это время');
+        }
+
         // Создаем тренировку
         Training::create([
             'group_id' => $request->group_id,
@@ -134,7 +156,7 @@ class ScheduleController extends Controller
             ->with('success', 'Тренировка успешно создана на ' . $fullStartTime->format('d.m.Y'));
     }
 
-    
+
     // Форма редактирования тренировки
     public function edit(Training $training)
     {

@@ -15,6 +15,7 @@
         </div>
     </div>
     <div class="card-body">
+        @if(auth()->user()->role == 'admin')
         <form action="{{ route('attendance.store', $training->id) }}" method="POST">
             @csrf
 
@@ -54,6 +55,47 @@
             </div>
             @endif
         </form>
+        @elseif(auth()->user()->role == 'coach')
+        <form action="{{ route('coach.attendance.store', $training->id) }}" method="POST">
+            @csrf
+
+            @if($athletes->count() > 0)
+            <div class="attendance-list">
+                <div class="form-group">
+                    <label class="form-label">Отметьте присутствующих спортсменов:</label>
+
+                    <div class="athletes-grid">
+                        @foreach($athletes as $athlete)
+                        <div class="athlete-item">
+                            <label class="athlete-checkbox">
+                                <input type="checkbox"
+                                    name="attendance[{{ $athlete->id }}]"
+                                    value="1"
+                                    {{ isset($existingAttendance[$athlete->id]) && $existingAttendance[$athlete->id] ? 'checked' : '' }}>
+                                <span class="athlete-name">
+                                    {{ $athlete->name }} {{ $athlete->surname }}
+                                </span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <a href="{{ route('schedule.index') }}" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить посещаемость</button>
+            </div>
+            @else
+            <div class="alert alert-warning">
+                В этой группе нет спортсменов.
+            </div>
+            <div class="form-buttons">
+                <a href="{{ route('schedule.index') }}" class="btn btn-secondary">Назад</a>
+            </div>
+            @endif
+        </form>
+        @endif
     </div>
 </div>
 @endsection

@@ -71,8 +71,12 @@
 
         <div class="form-buttons">
             <a href="{{ route('schedule.index') }}" class="btn btn-secondary">Назад к расписанию</a>
-            @if($training->status !== 'cancelled' && (Auth::user()->isAdmin() || (Auth::user()->isCoach() && $training->group->coach_id === Auth::user()->id)))
+            @if($training->status !== 'cancelled' && (Auth::user()->role == 'admin' && $training->group->coach_id === Auth::user()->id))
             <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-primary">
+                {{ $attendances->count() > 0 ? 'Изменить посещаемость' : 'Отметить посещаемость' }}
+            </a>
+            @elseif(Auth::user()->role == 'coach')
+            <a href="{{ route('coach.attendance.mark', $training->id) }}" class="btn btn-primary">
                 {{ $attendances->count() > 0 ? 'Изменить посещаемость' : 'Отметить посещаемость' }}
             </a>
             @endif

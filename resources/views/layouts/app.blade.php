@@ -39,10 +39,10 @@
                     </li>
                     @elseif(auth()->user()->role == 'coach')
                     <li class="nav-item">
-                        <a href="{{ route('athletes.index') }}" class="nav-link">Спортсмены</a>
+                        <a href="{{ route('coach.athletes.index') }}" class="nav-link">Спортсмены</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('groups.index') }}" class="nav-link">Группы</a>
+                        <a href="{{ route('coach.groups.index') }}" class="nav-link">Группы</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('schedule.index') }}" class="nav-link">Расписание</a>

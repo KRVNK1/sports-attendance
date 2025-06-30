@@ -135,7 +135,7 @@ class ScheduleController extends Controller
                     $q->where('start_time', '>=', $fullStartTime)
                         ->where('end_time', '<=', $fullEndTime);
                 });
-            });
+            })->exists();
 
         // Если есть конфликт
         if ($conflicts) {

@@ -25,8 +25,10 @@
 <div class="schedule-header">
     <h1>Расписание</h1>
     @auth
-    @if(auth()->user()->role == 'admin' || auth()->user()->role == 'coach')
+    @if(auth()->user()->role == 'admin')
     <a href="{{ route('schedule.create') }}" class="btn btn-primary">Добавить тренировку</a>
+    @elseif(auth()->user()->role == 'coach')
+    <a href="{{ route('coach.schedule.create') }}" class="btn btn-primary">Добавить тренировку</a>
     @endif
     @endauth
 </div>
@@ -78,9 +80,9 @@
                     <!-- Если авторизированный пользователь админ или тренер, и id   -->
                     @if(auth()->user()->role == 'admin' || (auth()->user()->role == 'coach' && auth()->user()->id == $training->group->coach_id))
                     <div class="management-actions">
-                        
+
                         <!-- Кнопки изменения статуса  -->
-                        @if(auth()->user()->role == 'admin' || auth()->user()->role == 'coach')
+                        @if(auth()->user()->role == 'admin')
                         <div class="status-actions">
                             @if($training->status != 'upcoming')
                             <form action="{{ route('schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
@@ -109,8 +111,38 @@
                             </form>
                             @endif
                         </div>
+                        @elseif(auth()->user()->role == 'coach')
+                        <div class="status-actions">
+                            @if($training->status != 'upcoming')
+                            <form action="{{ route('coach.schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="upcoming">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Сделать предстоящей</button>
+                            </form>
+                            @endif
+
+                            @if($training->status != 'active')
+                            <form action="{{ route('coach.schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="active">
+                                <button type="submit" class="btn btn-outline-success btn-sm">Сделать активной</button>
+                            </form>
+                            @endif
+
+                            @if($training->status != 'completed')
+                            <form action="{{ route('coach.schedule.updateStatus', $training->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="completed">
+                                <button type="submit" class="btn btn-outline-info btn-sm">Завершить</button>
+                            </form>
+                            @endif
+                        </div>
                         @endif
 
+                        @if(auth()->user()->role == 'admin')
                         <a href="{{ route('schedule.edit', $training->id) }}" class="btn btn-warning btn-sm">
                             Редактировать
                         </a>
@@ -122,9 +154,26 @@
                                 Удалить
                             </button>
                         </form>
+
+                        @elseif(auth()->user()->role == 'coach')
+                        <a href="{{ route('coach.schedule.edit', $training->id) }}" class="btn btn-warning btn-sm">
+                            Редактировать
+                        </a>
+
+                        <form action="{{ route('coach.schedule.destroy', $training->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены?')">
+                                Удалить
+                            </button>
+                        </form>
+
+                        @endif
                     </div>
 
-                    {{-- Кнопки посещаемости --}}
+                    <!-- Кнопки посещаемости -->
+                    <!-- Админ -->
+                    @if(auth()->user()->role == 'admin')
                     <div class="attendance-actions">
                         @if($training->status == 'active' || $training->status == 'upcoming')
                         <a href="{{ route('attendance.mark', $training->id) }}" class="btn btn-success btn-sm yellow">
@@ -138,6 +187,23 @@
                         </a>
                         @endif
                     </div>
+                    <!-- Тренер -->
+                    @elseif(auth()->user()->role == 'coach')
+                    <div class="attendance-actions">
+                        @if($training->status == 'active' || $training->status == 'upcoming')
+                        <a href="{{ route('coach.attendance.mark', $training->id) }}" class="btn btn-success btn-sm yellow">
+                            Отметить посещаемость
+                        </a>
+                        @endif
+
+                        @if($training->status == 'completed')
+                        <a href="{{ route('coach.attendance.show', $training->id) }}" class="btn btn-info btn-sm green">
+                            Посмотреть посещаемость
+                        </a>
+                        @endif
+                    </div>
+                    @endif
+
                     @endif
                 </div>
                 @endauth
